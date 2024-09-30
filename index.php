@@ -1,10 +1,38 @@
+<?php 
+    session_start();
+    if(!isset($_SESSION["backgroundcolor"])){
+        $_SESSION["backgroundcolor"]= "green";
+    }
+    
+    ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body <?php 
+if(isset($_POST["canviar"])){
+    $_SESSION["backgroundcolor"] = $_POST["color"];
+    echo "style='background-color:". $_SESSION['backgroundcolor']. "';>" ; 
+
+}
+else{
+    echo "style='background-color:". $_SESSION['backgroundcolor']. "';>" ; 
+
+}
+
+   
+    ?>
+
+<h1>Canviar color de fons</h1>
+<form action="index.php" method="post">
+    <label for="color">Tria un color</label>
+    <input type="color" name="color" id="color">
+    <input type="submit" name="canviar" value="Canviar">
+</form>
+
     <h1> Insertar usuari</h1>
     <form action="recollir.php" method="post" enctype="multipart/form-data" >
     
@@ -27,7 +55,9 @@
     <input type="radio" name="sexe" id="altre" value="altre">Altres <br>
     <label for="foto">Foto</label>
     <input type="file" name="foto" id="foto"><br>
+    
     <br>
+
     <input type="submit" name="submit" value="Enviar">
     </form>
     <a href="mostrar.php">Mostrar Usuaris</a>
